@@ -26,6 +26,6 @@
     "@types/react-redux": "7.1.4",
     "eslint": "6.5.1",
     "eslint-plugin-react": "7.16.0",
-    "typescript": "3.6.3"
+    "typescript": "3.6.4"
   }
 }
