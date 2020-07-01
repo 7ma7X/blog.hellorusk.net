@@ -17,7 +17,7 @@
   },
   "devDependencies": {
     "@mapbox/rehype-prism": "0.4.0",
-    "@mdx-js/loader": "1.6.5",
+    "@mdx-js/loader": "1.6.6",
     "@next/mdx": "9.3.6",
     "@types/ms": "0.7.31",
     "@types/node": "13.13.4",
