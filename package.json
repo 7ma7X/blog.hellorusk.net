@@ -22,7 +22,7 @@
     "@types/ms": "0.7.31",
     "@types/node": "13.13.4",
     "@types/react": "16.9.34",
-    "@types/react-dom": "16.9.7",
+    "@types/react-dom": "16.9.8",
     "@types/styled-jsx": "2.2.8",
     "@typescript-eslint/eslint-plugin": "2.29.0",
     "@typescript-eslint/parser": "2.29.0",
