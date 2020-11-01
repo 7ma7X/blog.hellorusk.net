@@ -28,7 +28,7 @@
     "@typescript-eslint/parser": "4.4.1",
     "chalk": "4.1.0",
     "eslint": "7.11.0",
-    "eslint-config-prettier": "6.13.0",
+    "eslint-config-prettier": "6.15.0",
     "eslint-plugin-prettier": "3.1.4",
     "eslint-plugin-react": "7.21.4",
     "extract-mdx-metadata": "1.0.0",
