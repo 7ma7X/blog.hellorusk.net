@@ -38,7 +38,7 @@
     "prompt-sync": "4.2.0",
     "rehype-join-line": "1.0.2",
     "rehype-katex": "3.0.0",
-    "remark-math": "3.0.1",
+    "remark-math": "4.0.0",
     "styled-jsx": "3.3.0",
     "typescript": "4.0.3"
   }
