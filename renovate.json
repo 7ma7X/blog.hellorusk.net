@@ -1,6 +1,8 @@
 {
-  "extends": [
-    "config:base", "schedule:monthly"
-  ],
-  "automerge": true
+  "packageRules": [
+    {
+      "updateTypes": ["minor", "patch", "pin", "digest"],
+      "automerge": true
+    }
+  ]
 }
