@@ -1,5 +1,5 @@
 import Layout from 'lib/components/layout'
-import { Link, Display } from '@geist-ui/react'
+import { Link, Display, Card } from '@geist-ui/react'
 
 export const meta = {
   title: 'Raspberry Pi Zero W を購入した',
@@ -48,16 +48,23 @@ Raspberry Pi 用に設計された電源ケーブル
 <Link href="https://www.amazon.co.jp/%E3%82%B9%E3%82%A4%E3%83%83%E3%83%81%E3%82%B5%E3%82%A4%E3%82%A8%E3%83%B3%E3%82%B9-RPI-C-004-Raspberry-Zero-%E3%82%B1%E3%83%BC%E3%82%B9/dp/B07FDF6599/ref=pd_sbs_147_t_1/358-0870669-8543938?_encoding=UTF8&pd_rd_i=B07FDF6599&pd_rd_r=e40cf9de-40e6-4f5b-8d21-b3f920d359ce&pd_rd_w=WZMl9&pd_rd_wg=7DJWI&pf_rd_p=ca22fd73-0f1e-4b39-9917-c84a20b3f3a8&pf_rd_r=7J8TYGBW24B9SKF900VD&psc=1&refRID=7J8TYGBW24B9SKF900VD" icon color target="_blank">Amazon.co.jp： Raspberry Pi Zero ケース: おもちゃ</Link>
 
 余談だが、自分は別のモデルの Raspberry Pi に対応したケースを誤って買ってしまったが、全くもって「大は小を兼ね」なかったので、
-きちんとサイズに気をつけてケースを購入しよう。
+きちんとサイズに気をつけてケースを購入しよう。 
 
-## microSD に Raspbian を格納する
+## microSD に Raspberry Pi OS を格納する
 
-Raspbian とは Raspberry Pi に対応した OS (Raspberry + Debian = Raspbian) であり、いくつか種類がある。
+Raspberry Pi OS とはその名の通り Raspberry Pi に対応した OS であり、いくつか種類がある。
 
-<Link href="https://www.raspberrypi.org/downloads/raspbian/" icon color target="_blank">Download Raspbian for Raspberry Pi</Link>
+<Link href="https://www.raspberrypi.org/software/operating-systems/" icon color target="_blank">Operating system images – Raspberry Pi</Link>
+
+<br />
+
+<Card>
+  <p>Raspberry Pi OS は 2020 年 5 月に旧称 Raspbian から改称された。<br />なお、Raspberry Pi OS の機能や仕様についてもっと知りたい場合は、以下の記事（英語）も参照するとよい。</p>
+  <a href="https://www.pcwdld.com/raspbian-raspberry-pi-os-guide" target="_blank">Raspbian - Raspberry Pi OS Guide - History, installation and more.</a>
+</Card>
 
 デスクトップ（いわゆる「パソコンの画面」）で操作したい場合は "with desktop" と付いているものを選択しよう。  
-自分は SSH で通信できれば十分だったので Raspbian Buster Lite にした。  
+自分は SSH で通信できれば十分だったので Lite と書かれたものにした。  
 なお、これはあとで後悔したことだが、上のリンクの海外の公式サイトからダウンロードすると時間がかかるので、国内のミラーサイトを探してそこからダウンロードした方が早い。
 
 <br />
