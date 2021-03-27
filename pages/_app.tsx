@@ -56,7 +56,7 @@ const Application = ({ Component, pageProps }: AppProps) => {
           content="initial-scale=1, maximum-scale=5, minimum-scale=1, viewport-fit=cover"
         />
       </Head>
-      <GeistProvider theme={{ type: themeType }}>
+      <GeistProvider themeType={themeType}>
         <CssBaseline>
           <ThemeConfigProvider onChange={changeHandle}>
             <Component {...pageProps} />
