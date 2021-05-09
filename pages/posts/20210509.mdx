@@ -1,0 +1,45 @@
+import Layout from 'lib/components/layout'
+import { Link, Display } from '@geist-ui/react'
+
+export const meta = {
+  title: 'IIDX の CPI ユーザー分布を可視化するサイトを立てた',
+  date: '2021-05-09T14:24:47.530Z',
+  description: '',
+  image: '',
+}
+
+beatmania IIDX（弐寺）という音楽ゲームをやっている。高校生の頃に少しやっていて、しばらく止めてしまっていたが、去年の夏くらいから再び始めて最近 SP 中伝になった。
+
+このゲームでは ☆12 というレベルが一応の公式での最高難易度になっているが、同じ ☆12 であっても簡単な曲と難しい曲の難易度があまりにも違うため、
+☆12 の難易度をさらに細分化することが非公式に行われている。  
+[地力表](https://sp12.iidx.app/)というものが長らく使われており、これは、古くは 2ch、近頃は Twitter のアンケート投票から難易度を議論して決めたものである。
+一方、最近になって [CPI](https://cpi.makecir.com/pages/about) というサイトが作られた。
+これは、実際のプレイヤーのクリアランプ状況から難易度を客観的に推測するという試みで、非常に画期的である。難易度だけでなく、クリアランプに応じてプレイヤーの腕前もスコアとして推定されるため、モチベーションアップに繋がりやすい。
+
+この CPI について、プレイヤーの中での分布がどうなっているのか前々から気になっていた。そこで、すぐにグラフで確認できるように以下のようなサイトを立てた。
+
+- <Link href="https://iidx.hellorusk.net/" icon color target="_blank">https://iidx.hellorusk.net</Link>
+
+懸念を持たれるかもしれないのであらかじめ断っておくと、**このサイトを閲覧することで CPI のサイト自体に負荷がかかるようなことは断じてない。データを取得するのに必要なのは [CPI ユーザー一覧](https://cpi.makecir.com/users) に 1 回アクセスする作業だけであり、このサイトを閲覧することと CPI ユーザー一覧を閲覧することは本質的に何も変わらないからである。**
+
+ウェブサイトは Next.js + TypeScript + Vercel というお決まりの組み合わせで作った。また、グラフ描画のために [recharts](https://recharts.org/en-US/) を用いた。
+ソースコードは [GitHub](https://github.com/HelloRusk/IIDX_CPI_CHART) にあげている。
+
+ちなみに、2020年5月9日に確認した時には以下のような分布になっていた。
+
+<Display shadow>
+  <img src="https://user-images.githubusercontent.com/36184621/117575486-04f0f400-b11d-11eb-9658-e5e6f0baa8f4.png" alt="distribution"/>
+</Display>
+
+自分は 1400 台前半で中伝に合格したが、中伝においては底辺に近いレベルだということが分かる。
+
+
+
+
+
+
+
+
+
+
+export default ({ children }) => <Layout meta={meta}>{children}</Layout>
