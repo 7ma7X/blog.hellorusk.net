@@ -22,7 +22,7 @@
     "@next/env": "10.0.9",
     "@next/mdx": "9.5.5",
     "@types/ms": "0.7.31",
-    "@types/node": "14.14.24",
+    "@types/node": "14.17.1",
     "@types/react": "16.14.8",
     "@types/react-dom": "16.9.13",
     "@types/styled-jsx": "2.2.8",
