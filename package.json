@@ -7,7 +7,7 @@
     "export": "npm run now-build && next export"
   },
   "dependencies": {
-    "@babel/core": "7.14.0",
+    "@babel/core": "7.14.3",
     "@geist-ui/react": "2.1.5",
     "ms": "2.1.2",
     "next": "10.2.0",
