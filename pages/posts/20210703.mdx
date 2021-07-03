@@ -1,0 +1,125 @@
+import Layout from 'lib/components/layout'
+import { Link } from '@geist-ui/react'
+
+export const meta = {
+  title: 'Web サイト監視システムを最速で構築する',
+  date: '2021-07-03T07:24:03.951Z',
+  description: '',
+  image: '',
+}
+
+ある Web サイトに対して、DoS にならない程度の常識的な間隔（例えば 10 分に 1 回のアクセス）で定期アクセスし、
+更新があれば通知するような監視システムをパッと作るにはどうすればよいかを考えた。
+
+---
+
+通知媒体に関しては色々考えられるが、自分の場合 LINE や Twitter、Discord よりも Slack の方が反応しやすいので、Slack に通知させることにした。  
+Slack は Incoming Webhook というのが昔からあってお手軽だったが、最近は SDK もちゃんと用意されているのでこっちの方がつかいやすいと思う。
+
+- <Link href="https://qiita.com/seratch/items/8f93fd0bf815b0b1d557" icon color target="_blank">Python で Slack API や Webhook を扱うなら公式 SDK（slack-sdk/slack-bolt）を使おう</Link>
+
+それで、Slack のトークンを記事に書いてある通りに入手したら、それを `SLACK_API_TOKEN` という環境変数に入れて、
+差分通知のスクリプト `check.py` を以下のように書いておく。
+
+```py
+from difflib import context_diff
+import os
+
+import requests
+from slack_sdk.web import WebClient
+client = WebClient(os.environ["SLACK_API_TOKEN"])
+
+# 監視対象のリンク
+url = "https://XXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+
+# 古い方のファイルを読み込む
+old_data = open("dump", "r").read().splitlines(keepends=True)
+# 改行文字を除去
+old_data = [line.rstrip() for line in old_data]
+
+# 新しいファイルをダウンロードする
+new_data = requests.get(url).text.splitlines(keepends=True)
+# 改行文字を除去
+new_data = [line.rstrip() for line in new_data]
+
+
+if old_data != new_data:
+    out = []
+    for line in context_diff(old_data, new_data):
+        out.append(line)
+    
+    client.chat_postMessage(text="".join(out), channel="#ZZZZZZZZZZZZZZ")
+
+    with open("dump", "w") as f:
+        f.write("".join(new_data))
+```
+
+`dump` という名前のファイルにサイトのデータを入れることにしたので、最初にこの名前で空ファイルを作っておく。  
+これでこのスクリプトを動かすと、うまく Slack に通知されることが確認できる。
+
+---
+
+次にこれを定期実行させることを考える。サーバーを持っていれば `crontab` を使えばよいのだが、
+サーバーレスでやるにはどうするか？ ここでは GitHub Actions を検討する。
+
+上記の `check.py` と `dump` ファイルを適当なリポジトリに突っ込む。
+次に GitHub Actions のファイルを適当に用意する。
+
+
+```yml
+name: cron
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron:  '*/10 0-8 * * *'
+    
+env:
+  SLACK_API_TOKEN: ${{ secrets.SLACK_API_TOKEN }}
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python 3.9
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.9
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install requests
+        pip install slack_sdk
+    - name: run checker
+      run: |
+        python check.py
+        
+    - name: commit & push
+      run: |
+        if ! git diff --exit-code --quiet
+        then
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          git add .
+          git commit -m "Update"
+          git push
+        fi
+```
+
+`'*/10 0-8 * * *'` と書いたのは、日本時間で 9 時台から 17 時台に 10 分置きに動かすという意味である。JST ではなく UTC で記述することに注意する。  
+また、GitHub Actions の利用枠にも注意する。現在は無料枠では 2,000 分/月 であるので、これを満たすように時間を考える。  
+このスクリプトは 1 回動かすのに 30 秒くらいかかったので、1ヶ月に使う時間はおよそ
+
+0.5 (分) \* 6 (回/時間) \* 9 (時間) \* 30 (日) = 810 (分)
+
+となる。色々なリポジトリで色々 GitHub Actions を動かしていると利用枠はあっという間に消えるので注意されたし。
+
+
+
+export default ({ children }) => <Layout meta={meta}>{children}</Layout>
